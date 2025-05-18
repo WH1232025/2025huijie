@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>智能餐厅点餐系统</title>
+    <style>
+        :root {
+            --primary-color: #c53d13;
+            --secondary-color: #f5e6d3;
+            --accent-color: #6b9080;
+        }
+
+        body {
+            font-family: 'Microsoft YaHei', sans-serif;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #faf5ef;
+            color: #3d3d3d;
+        }
+
+        .header {
+            text-align: center;
+            padding: 2rem;
+            background: var(--primary-color);
+            color: white;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+        }
+
+        .menu-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .menu-section {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.05);
+        }
+
+        .menu-item {
+            cursor: pointer;
+            padding: 1rem;
+            margin: 0.5rem 0;
+            border-radius: 8px;
+            transition: all 0.2s;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .menu-item:hover {
+            background: var(--secondary-color);
+            transform: translateX(5px);
+        }
+
+        .item-info {
+            flex: 1;
+        }
+
+        .item-price {
+            color: var(--primary-color);
+            font-weight: bold;
+            margin-top: 0.5rem;
+        }
+
+        .quantity-selector {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .quantity-btn {
+            padding: 0.3rem 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .order-form {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+
+        .selected-items {
+            margin: 1rem 0;
+            padding: 1rem;
+            border: 1px solid #eee;
+            border-radius: 8px;
+        }
+
+        .order-summary {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+            border-top: 1px solid #eee;
+        }
+
+        .order-time {
+            color: #666;
+            margin-top: 1rem;
+            font-size: 0.9em;
+        }
+
+        .admin-panel {
+            background: #f9f9f9;
+            padding: 2rem;
+            border-radius: 12px;
+            margin-top: 2rem;
+        }
+
+        #clearSelection, #clearAllOrders {
+            background: #dc3545;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+
+        .delete-btn {
+            background: #ff4444;
+            color: white;
+            border: none;
+            padding: 0.3rem 0.8rem;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-left: 1rem;
+            transition: opacity 0.2s;
+        }
+
+        #clearSelection:hover, #clearAllOrders:hover,
+        .delete-btn:hover {
+            opacity: 0.8;
+        }
+
+        .order-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>智能餐厅点餐系统</h1>
+        <p>点击菜品选择数量，确认后提交订单</p>
+    </div>
+
+    <!-- 完整菜单 -->
+    <div class="menu-container">
+        <!-- 主菜 -->
+        <div class="menu-section">
+            <h2>主菜 Main Courses</h2>
+            <div class="menu-item">
+                <div class="item-info">
+                    <div class="item-name">日式炸猪排风味脆皮鸡肉</div>
+                    <div class="item-desc">Poulet croustillant façon Katsu japonais</div>
+                    <div class="item-price">￥38</div>
+                </div>
+                <div class="quantity-selector">
+                    <button class="quantity-btn minus">-</button>
+                    <span class="quantity">0</span>
+                    <button class="quantity-btn plus">+</button>
+                </div>
+            </div>
+            <div class="menu-item">
+                <div class="item-info">
+                    <div class="item-name">日式炸猪排风味脆皮鸡肉</div>
+                    <div class="item-desc">Poulet croustillant façon Katsu japonais</div>
+                    <div class="item-price">￥38</div>
+                </div>
+                <div class="quantity-selector">
+                    <button class="quantity-btn minus">-</button>
+                    <span class="quantity">0</span>
+                    <button class="quantity-btn plus">+</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 饮品 -->
+        <div class="menu-section">
+            <h2>饮品 Beverages</h2>
+            <div class="menu-item">
+                <div class="item-info">
+                    <div class="item-name">豆奶</div>
+                    <div class="item-desc">Soy Milk</div>
+                    <div class="item-price">￥15</div>
+                </div>
+                <div class="quantity-selector">
+                    <button class="quantity-btn minus">-</button>
+                    <span class="quantity">0</span>
+                    <button class="quantity-btn plus">+</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 订单表单 -->
+    <div class="order-form">
+        <h2>您的订单</h2>
+        <div class="selected-items" id="selectedItems"></div>
+        <div class="order-summary">
+            <div>总价：<span id="totalPrice">0</span> 元</div>
+            <button id="clearSelection">清除选择</button>
+        </div>
+        <div class="order-time" id="orderTime"></div>
+        <button id="submitOrder">提交订单</button>
+    </div>
+
+    <!-- 订单管理 -->
+    <div class="admin-panel">
+        <h2>订单列表</h2>
+        <button id="clearAllOrders">清除全部订单</button>
+        <div class="order-list" id="ordersList"></div>
+    </div>
+
+    <script>
+        // 实时显示时间
+        function updateTime() {
+            const now = new Date();
+            document.getElementById('orderTime').textContent = 
+                `当前时间：${now.toLocaleString('zh-CN')}`;
+        }
+        setInterval(updateTime, 1000);
+        updateTime();
+
+        // 处理数量选择
+        document.querySelectorAll('.quantity-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const selector = this.closest('.quantity-selector');
+                const quantityElem = selector.querySelector('.quantity');
+                let quantity = parseInt(quantityElem.textContent);
+                
+                if(this.classList.contains('plus')) {
+                    quantity++;
+                } else {
+                    quantity = Math.max(0, quantity - 1);
+                }
+                
+                quantityElem.textContent = quantity;
+                updateSelectedItems();
+            });
+        });
+
+        // 更新已选商品
+        function updateSelectedItems() {
+            const container = document.getElementById('selectedItems');
+            container.innerHTML = '';
+            let total = 0;
+            
+            document.querySelectorAll('.menu-item').forEach(item => {
+                const quantity = parseInt(item.querySelector('.quantity').textContent);
+                if(quantity > 0) {
+                    const clone = item.cloneNode(true);
+                    const price = parseInt(item.querySelector('.item-price').textContent.replace('￥', ''));
+                    total += price * quantity;
+                    clone.querySelector('.quantity-selector').remove();
+                    const div = document.createElement('div');
+                    div.className = 'selected-item';
+                    div.innerHTML = `
+                        ${clone.innerHTML}
+                        <div class="quantity-display">x${quantity}</div>
+                    `;
+                    container.appendChild(div);
+                }
+            });
+            document.getElementById('totalPrice').textContent = total;
+        }
+
+        // 提交订单
+        document.getElementById('submitOrder').addEventListener('click', function() {
+            let total = 0;
+            const orderItems = [];
+            document.querySelectorAll('.menu-item').forEach(item => {
+                const name = item.querySelector('.item-name').textContent;
+                const desc = item.querySelector('.item-desc').textContent;
+                const price = parseInt(item.querySelector('.item-price').textContent.replace('￥', ''));
+                const quantity = parseInt(item.querySelector('.quantity').textContent);
+                if(quantity > 0) {
+                    orderItems.push({
+                        name: `${name} (${desc})`,
+                        quantity,
+                        price
+                    });
+                    total += price * quantity;
+                }
+            });
+
+            if(orderItems.length === 0) {
+                alert('请至少选择一个商品');
+                return;
+            }
+
+            const order = {
+                id: Date.now(), // 添加唯一ID
+                items: orderItems,
+                total,
+                timestamp: new Date().toLocaleString('zh-CN'),
+                orderTime: new Date().toISOString()
+            };
+
+           // 保存到本地存储
+            let orders = JSON.parse(localStorage.getItem('orders')) || [];
+            orders.push(order);
+            localStorage.setItem('orders', JSON.stringify(orders));
+
+            // 显示订单
+            renderOrders();
+            alert(`订单已提交！\n时间：${order.timestamp}\n总价：￥${total}`);
+            
+            // 重置选择
+            document.querySelectorAll('.quantity').forEach(q => q.textContent = '0');
+            updateSelectedItems();
+        });
+
+        // 渲染订单列表
+        function renderOrders() {
+            const orders = JSON.parse(localStorage.getItem('orders')) || [];
+            const container = document.getElementById('ordersList');
+            container.innerHTML = '';
+            
+            orders.forEach((order, index) => {
+                const itemsText = order.items.map(item => 
+                    `${item.name} x${item.quantity} (￥${item.price * item.quantity})`
+                ).join('\n');
+                
+                const div = document.createElement('div');
+                div.className = 'order-item';
+                div.innerHTML = `
+                    <div class="order-header">
+                        <h3>订单 #${index + 1} - ${order.timestamp}</h3>
+                        <button class="delete-btn" data-id="${order.id}">删除</button>
+                    </div>
+                    <pre>${itemsText}\n总计：￥${order.total}</pre>
+                `;
+                container.appendChild(div);
+            });
+
+            // 绑定删除事件
+            document.querySelectorAll('.delete-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const orderId = parseInt(this.dataset.id);
+                    if(confirm('确定要删除这个订单吗？')) {
+                        let orders = JSON.parse(localStorage.getItem('orders')) || [];
+                        orders = orders.filter(order => order.id !== orderId);
+                        localStorage.setItem('orders', JSON.stringify(orders));
+                        renderOrders();
+                    }
+                });
+            });
+        }
+
+        // 清除功能
+        document.getElementById('clearSelection').addEventListener('click', () => {
+            document.querySelectorAll('.quantity').forEach(q => q.textContent = '0');
+            updateSelectedItems();
+        });
+
+        document.getElementById('clearAllOrders').addEventListener('click', () => {
+            if(confirm('确定要清除所有订单记录吗？此操作不可恢复！')) {
+                localStorage.removeItem('orders');
+                renderOrders();
+            }
+        });
+
+        // 初始化
+        renderOrders();
+    </script>
+</body>
+</html>
