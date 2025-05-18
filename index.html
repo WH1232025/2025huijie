@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>智能餐厅点餐系统</title>
     <style>
+        /* 原有CSS样式保持不变 */
         :root {
             --primary-color: #c53d13;
             --secondary-color: #f5e6d3;
@@ -41,7 +43,7 @@
             background: white;
             padding: 1.5rem;
             border-radius: 12px;
-            box-shadow: 0 3px 15px rgba(0,0,0,0.05);
+            box-shadow: 0 3px 15px rgba(0, 0, 0, 0.05);
         }
 
         .menu-section h2 {
@@ -102,7 +104,7 @@
             background: white;
             padding: 2rem;
             border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
         }
 
         .selected-items {
@@ -145,8 +147,41 @@
             margin-top: 1rem;
             font-size: 0.9em;
         }
+
+        #fireworks-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            /* 防止遮挡页面交互 */
+            z-index: 9999;
+            /* 确保在最上层 */
+        }
+
+        .firework {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            animation: explode 1s ease-out forwards;
+        }
+
+        @keyframes explode {
+            0% {
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(0);
+            }
+
+            100% {
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(5);
+            }
+        }
     </style>
 </head>
+
 <body>
     <div class="header">
         <h1>智能餐厅点餐系统</h1>
@@ -160,7 +195,7 @@
                 <div class="item-info">
                     <div class="item-name">日式炸猪排风味脆皮鸡肉</div>
                     <div class="item-desc">Poulet croustillant façon katsu</div>
-                    <div class="item-price">€8</div>
+                    <div class="item-price">€20</div>
                 </div>
                 <div class="quantity-selector">
                     <button class="quantity-btn minus">-</button>
@@ -168,7 +203,70 @@
                     <button class="quantity-btn plus">+</button>
                 </div>
             </div>
+            <div class="menu-item">
+                <div class="item-info">
+                    <div class="item-name">香煎三文鱼配奶油时萝酱</div>
+                    <div class="item-desc">Saumon grillé sauce crème à l'aneth</div>
+                    <div class="item-price">€20</div>
+                </div>
+                <div class="quantity-selector">
+                    <button class="quantity-btn minus">-</button>
+                    <span class="quantity">0</span>
+                    <button class="quantity-btn plus">+</button>
+                </div>
             </div>
+            <div class="menu-item">
+                <div class="item-info">
+                    <div class="item-name">改良版花生酱鸡肉胡萝卜马菲</div>
+                    <div class="item-desc">Mafé revisité poulet & carotte</div>
+                    <div class="item-price">€20</div>
+                </div>
+                <div class="quantity-selector">
+                    <button class="quantity-btn minus">-</button>
+                    <span class="quantity">0</span>
+                    <button class="quantity-btn plus">+</button>
+                </div>
+            </div>
+            <div class="menu-item">
+                <div class="item-info">
+                    <div class="item-name">珍珠古斯米配虾</div>
+                    <div class="item-desc">Couscous perlé aux crevettes</div>
+                    <div class="item-price">€20</div>
+                </div>
+                <div class="quantity-selector">
+                    <button class="quantity-btn minus">-</button>
+                    <span class="quantity">0</span>
+                    <button class="quantity-btn plus">+</button>
+                </div>
+            </div>
+            <div class="menu-item">
+                <div class="item-info">
+                    <div class="item-name">菲律宾比科尔快车：椰香猪肉</div>
+                    <div class="item-desc">Bicol express porc au lait de coco</div>
+                    <div class="item-price">€20</div>
+                </div>
+                <div class="quantity-selector">
+                    <button class="quantity-btn minus">-</button>
+                    <span class="quantity">0</span>
+                    <button class="quantity-btn plus">+</button>
+                </div>
+            </div>
+            <div class="menu-item">
+                <div class="item-info">
+                    <div class="item-name">泰式绿咖喱鸡肉</div>
+                    <div class="item-desc">Curry vert thaï au poulet</div>
+                    <div class="item-price">€20</div>
+                </div>
+                <div class="quantity-selector">
+                    <button class="quantity-btn minus">-</button>
+                    <span class="quantity">0</span>
+                    <button class="quantity-btn plus">+</button>
+                </div>
+            </div>
+
+
+        </div>
+           
 
         <div class="menu-section">
             <h2>饮品 Beverages</h2>
@@ -176,7 +274,7 @@
                 <div class="item-info">
                     <div class="item-name">豆奶</div>
                     <div class="item-desc">Lait de soja</div>
-                    <div class="item-price">€3</div>
+                    <div class="item-price">€2</div>
                 </div>
                 <div class="quantity-selector">
                     <button class="quantity-btn minus">-</button>
@@ -184,9 +282,34 @@
                     <button class="quantity-btn plus">+</button>
                 </div>
             </div>
+            <div class="menu-item">
+                <div class="item-info">
+                    <div class="item-name">奶茶</div>
+                    <div class="item-desc">Thé au lait</div>
+                    <div class="item-price">€4</div>
+                </div>
+                <div class="quantity-selector">
+                    <button class="quantity-btn minus">-</button>
+                    <span class="quantity">0</span>
+                    <button class="quantity-btn plus">+</button>
+                </div>
             </div>
-    </div>
+            <div class="menu-item">
+                <div class="item-info">
+                    <div class="item-name">杨梅汁</div>
+                    <div class="item-desc">Jus de yangmei</div>
+                    <div class="item-price">€2</div>
+                </div>
+                <div class="quantity-selector">
+                    <button class="quantity-btn minus">-</button>
+                    <span class="quantity">0</span>
+                    <button class="quantity-btn plus">+</button>
+                </div>
+            </div>
 
+
+        </div>
+    </div>
     <div class="order-form">
         <h2>您的订单</h2>
         <div class="selected-items" id="selectedItems"></div>
@@ -204,11 +327,13 @@
         <div class="order-list" id="ordersList"></div>
     </div>
 
+    <div id="fireworks-container"></div>
+
     <script>
         // 实时显示时间
         function updateTime() {
             const now = new Date();
-            document.getElementById('orderTime').textContent = 
+            document.getElementById('orderTime').textContent =
                 `当前时间：${now.toLocaleString('zh-CN')}`;
         }
         setInterval(updateTime, 1000);
@@ -220,7 +345,7 @@
                 const selector = this.closest('.quantity-selector');
                 const quantityElem = selector.querySelector('.quantity');
                 let quantity = parseInt(quantityElem.textContent);
-                
+
                 quantity = this.classList.contains('plus') ? quantity + 1 : Math.max(0, quantity - 1);
                 quantityElem.textContent = quantity;
                 updateSelectedItems();
@@ -232,10 +357,10 @@
             const container = document.getElementById('selectedItems');
             container.innerHTML = '';
             let total = 0;
-            
+
             document.querySelectorAll('.menu-item').forEach(item => {
                 const quantity = parseInt(item.querySelector('.quantity').textContent);
-                if(quantity > 0) {
+                if (quantity > 0) {
                     const clone = item.cloneNode(true);
                     const price = parseInt(item.querySelector('.item-price').textContent.replace('€', ''));
                     total += price * quantity;
@@ -263,7 +388,7 @@
                     quantity: parseInt(item.querySelector('.quantity').textContent)
                 }));
 
-            if(orderItems.length === 0) return alert('请至少选择一个商品');
+            if (orderItems.length === 0) return alert('请至少选择一个商品');
 
             const total = orderItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
             const order = {
@@ -271,95 +396,79 @@
                 items: orderItems,
                 total,
                 timestamp: new Date().toLocaleString('zh-CN'),
-                orderTime: new Date().toISOString()
+                orderTime: new Date().toISOString(),
+                // 新增：预计送餐时间
+                deliveryTime: calculateDeliveryTime()
             };
 
             const orders = JSON.parse(localStorage.getItem('orders')) || [];
             localStorage.setItem('orders', JSON.stringify([...orders, order]));
             renderOrders();
 
-            // 语音提示
+            //  新增：发送邮件到服务器
+            fetch('/send-order-email', {  //  请确保服务器正确配置，并且可以访问到
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    order: order,
+                    recipientEmail: 'huijiezwangvvvvv@gmail.com'  //  指定接收邮箱
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    console.log('邮件已成功发送');
+                } else {
+                    console.error('邮件发送失败:', data.message);
+                    alert('订单已提交，但发送邮件通知失败。');
+                }
+            })
+            .catch(error => {
+                console.error('发送邮件时发生错误:', error);
+                alert('订单已提交，但发送邮件通知时发生错误。');
+            });
+
+
+            // 语音提示功能
             if (window.speechSynthesis) {
-                const utterance = new SpeechSynthesisUtterance('感谢您的惠顾，祝您用餐愉快！');
+                const speechText = `感谢您的订购，您的订单总金额为${total}欧元，预计送达时间为${order.deliveryTime}。`;
+                const utterance = new SpeechSynthesisUtterance(speechText);
                 utterance.lang = 'zh-CN';
                 utterance.rate = 0.9;
-                // 选择一个男声 (注意：浏览器的语音列表可能不同，需要动态获取)
-                const voices = window.speechSynthesis.getVoices();
-                const maleVoice = voices.find(voice => voice.name.includes('Male')); // 尝试找到包含 "Male" 的声音
+
+                // 语音选择逻辑
+                let maleVoice;
+                const voices = speechSynthesis.getVoices();
+                const maleVoiceNames = [
+                    'Microsoft Kangkang - Chinese (Simplified, PRC)',
+                    'Ting-Ting'
+                ];
+
+                maleVoice = voices.find(voice =>
+                    voice.lang === 'zh-CN' &&
+                    voice.name.includes('Kangkang')
+                );
+
+                if (!maleVoice) {
+                    maleVoice = voices.find(voice =>
+                        voice.lang === 'zh-CN' &&
+                        !voice.name.includes('Female')
+                    );
+                }
+
+                if (!maleVoice) {
+                    maleVoice = voices.find(voice => voice.lang === 'zh-CN');
+                }
+
                 if (maleVoice) {
                     utterance.voice = maleVoice;
-                } else if (voices.length > 0) {
-                    utterance.voice = voices[0]; // 如果没有找到男声，则使用第一个可用的声音
+                    utterance.pitch = 0.8; // 调整音调
                 }
 
-                // 确保语音列表加载完毕后再播放
-                if (voices.length === 0) {
-                    window.speechSynthesis.onvoiceschanged = function() {
-                        const updatedVoices = window.speechSynthesis.getVoices();
-                        const updatedMaleVoice = updatedVoices.find(voice => voice.name.includes('Male'));
-                        if (updatedMaleVoice) {
-                            utterance.voice = updatedMaleVoice;
-                        } else if (updatedVoices.length > 0) {
-                            utterance.voice = updatedVoices[0];
-                        }
-                        speechSynthesis.cancel();
-                        speechSynthesis.speak(utterance);
-                    };
-                } else {
-                    speechSynthesis.cancel();
-                    speechSynthesis.speak(utterance);
-                }
+                speechSynthesis.cancel();
+                speechSynthesis.speak(utterance);
             }
 
-            alert(`订单提交成功！\n时间：${order.timestamp}\n总价：€${total}`);
-            document.querySelectorAll('.quantity').forEach(q => q.textContent = '0');
-            updateSelectedItems();
-        });
-
-        // 渲染订单列表
-        function renderOrders() {
-            const orders = JSON.parse(localStorage.getItem('orders')) || [];
-            const container = document.getElementById('ordersList');
-            container.innerHTML = orders.map((order, index) => `
-                <div class="order-item">
-                    <div class="order-header">
-                        <h3>订单 #${index + 1} - ${order.timestamp}</h3>
-                        <button class="delete-btn" data-id="${order.id}">删除</button>
-                    </div>
-                    <pre>${order.items.map(item => 
-                        `${item.name} (${item.desc}) x${item.quantity} €${item.price * item.quantity}`
-                    ).join('\n')}\n总计：€${order.total}</pre>
-                </div>
-            `).join('');
-
-            document.querySelectorAll('.delete-btn').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const orderId = parseInt(this.dataset.id);
-                    if(confirm('确定要删除这个订单吗？')) {
-                        const orders = JSON.parse(localStorage.getItem('orders'))
-                            .filter(order => order.id !== orderId);
-                        localStorage.setItem('orders', JSON.stringify(orders));
-                        renderOrders();
-                    }
-                });
-            });
-        }
-
-        // 清除功能
-        document.getElementById('clearSelection').addEventListener('click', () => {
-            document.querySelectorAll('.quantity').forEach(q => q.textContent = '0');
-            updateSelectedItems();
-        });
-
-        document.getElementById('clearAllOrders').addEventListener('click', () => {
-            if(confirm('确定要清除所有订单记录吗？')) {
-                localStorage.removeItem('orders');
-                renderOrders();
-            }
-        });
-
-        // 初始化
-        renderOrders();
-    </script>
-</body>
-</html>
+            alert(`订单提交成功！\n时间
