@@ -1,210 +1,161 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>智能餐厅点餐系统</title>
-    <style>
-        :root {
-            --primary-color: #c53d13;
-            --secondary-color: #f5e6d3;
-            --accent-color: #6b9080;
-        }
-
-        body {
-            font-family: 'Microsoft YaHei', sans-serif;
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #faf5ef;
-            color: #3d3d3d;
-        }
-
-        .header {
-            text-align: center;
-            padding: 2rem;
-            background: var(--primary-color);
-            color: white;
-            border-radius: 12px;
-            margin-bottom: 2rem;
-        }
-
-        .menu-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-bottom: 2rem;
-        }
-
-        .menu-section {
-            background: white;
-            padding: 1.5rem;
-            border-radius: 12px;
-            box-shadow: 0 3px 15px rgba(0,0,0,0.05);
-        }
-
-        .menu-item {
-            cursor: pointer;
-            padding: 1rem;
-            margin: 0.5rem 0;
-            border-radius: 8px;
-            transition: all 0.2s;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .menu-item:hover {
-            background: var(--secondary-color);
-            transform: translateX(5px);
-        }
-
-        .item-info {
-            flex: 1;
-        }
-
-        .item-price {
-            color: var(--primary-color);
-            font-weight: bold;
-            margin-top: 0.5rem;
-        }
-
-        .quantity-selector {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .quantity-btn {
-            padding: 0.3rem 0.8rem;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-
-        .order-form {
-            background: white;
-            padding: 2rem;
-            border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-        }
-
-        .selected-items {
-            margin: 1rem 0;
-            padding: 1rem;
-            border: 1px solid #eee;
-            border-radius: 8px;
-        }
-
-        .order-summary {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1rem 0;
-            border-top: 1px solid #eee;
-        }
-
-        .order-time {
-            color: #666;
-            margin-top: 1rem;
-            font-size: 0.9em;
-        }
-
-        .admin-panel {
-            background: #f9f9f9;
-            padding: 2rem;
-            border-radius: 12px;
-            margin-top: 2rem;
-        }
-
-        #clearSelection, #clearAllOrders {
-            background: #dc3545;
-            color: white;
-            border: none;
-            padding: 0.5rem 1rem;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: opacity 0.2s;
-        }
-
-        .delete-btn {
-            background: #ff4444;
-            color: white;
-            border: none;
-            padding: 0.3rem 0.8rem;
-            border-radius: 4px;
-            cursor: pointer;
-            margin-left: 1rem;
-            transition: opacity 0.2s;
-        }
-
-        #clearSelection:hover, #clearAllOrders:hover,
-        .delete-btn:hover {
-            opacity: 0.8;
-        }
-
-        .order-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 0.5rem;
-        }
-    </style>
-</head>
-<body>
-    <div class="header">
-        <h1>智能餐厅点餐系统</h1>
-        <p>点击菜品选择数量，确认后提交订单</p>
-    </div>
-
-    <!-- 完整菜单 -->
-    <div class="menu-container">
-        <!-- 主菜 -->
-        <div class="menu-section">
-            <h2>主菜 Main Courses</h2>
-            <div class="menu-item">
-                <div class="item-info">
-                    <div class="item-name">日式炸猪排风味脆皮鸡肉</div>
-                    <div class="item-desc">Poulet croustillant façon Katsu japonais</div>
-                    <div class="item-price">￥38</div>
-                </div>
-                <div class="quantity-selector">
-                    <button class="quantity-btn minus">-</button>
-                    <span class="quantity">0</span>
-                    <button class="quantity-btn plus">+</button>
-                </div>
+<!-- 完整菜单 -->
+<div class="menu-container">
+    <!-- 主菜 -->
+    <div class="menu-section">
+        <h2>主菜 Main Courses</h2>
+        <!-- 重复6次日式炸猪排风味脆皮鸡肉 -->
+        <div class="menu-item">
+            <div class="item-info">
+                <div class="item-name">日式炸猪排风味脆皮鸡肉</div>
+                <div class="item-desc">Poulet croustillant façon Katsu japonais</div>
+                <div class="item-price">￥38</div>
             </div>
-            <div class="menu-item">
-                <div class="item-info">
-                    <div class="item-name">日式炸猪排风味脆皮鸡肉</div>
-                    <div class="item-desc">Poulet croustillant façon Katsu japonais</div>
-                    <div class="item-price">￥38</div>
-                </div>
-                <div class="quantity-selector">
-                    <button class="quantity-btn minus">-</button>
-                    <span class="quantity">0</span>
-                    <button class="quantity-btn plus">+</button>
-                </div>
+            <div class="quantity-selector">
+                <button class="quantity-btn minus">-</button>
+                <span class="quantity">0</span>
+                <button class="quantity-btn plus">+</button>
             </div>
         </div>
-
-        <!-- 饮品 -->
-        <div class="menu-section">
-            <h2>饮品 Beverages</h2>
-            <div class="menu-item">
-                <div class="item-info">
-                    <div class="item-name">豆奶</div>
-                    <div class="item-desc">Soy Milk</div>
-                    <div class="item-price">￥15</div>
-                </div>
-                <div class="quantity-selector">
-                    <button class="quantity-btn minus">-</button>
-                    <span class="quantity">0</span>
-                    <button class="quantity-btn plus">+</button>
-                </div>
+        <div class="menu-item">
+            <div class="item-info">
+                <div class="item-name">日式炸猪排风味脆皮鸡肉</div>
+                <div class="item-desc">Poulet croustillant façon Katsu japonais</div>
+                <div class="item-price">￥38</div>
+            </div>
+            <div class="quantity-selector">
+                <button class="quantity-btn minus">-</button>
+                <span class="quantity">0</span>
+                <button class="quantity-btn plus">+</button>
+            </div>
+        </div>
+        <div class="menu-item">
+            <div class="item-info">
+                <div class="item-name">日式炸猪排风味脆皮鸡肉</div>
+                <div class="item-desc">Poulet croustillant façon Katsu japonais</div>
+                <div class="item-price">￥38</div>
+            </div>
+            <div class="quantity-selector">
+                <button class="quantity-btn minus">-</button>
+                <span class="quantity">0</span>
+                <button class="quantity-btn plus">+</button>
+            </div>
+        </div>
+        <div class="menu-item">
+            <div class="item-info">
+                <div class="item-name">日式炸猪排风味脆皮鸡肉</div>
+                <div class="item-desc">Poulet croustillant façon Katsu japonais</div>
+                <div class="item-price">￥38</div>
+            </div>
+            <div class="quantity-selector">
+                <button class="quantity-btn minus">-</button>
+                <span class="quantity">0</span>
+                <button class="quantity-btn plus">+</button>
+            </div>
+        </div>
+        <div class="menu-item">
+            <div class="item-info">
+                <div class="item-name">日式炸猪排风味脆皮鸡肉</div>
+                <div class="item-desc">Poulet croustillant façon Katsu japonais</div>
+                <div class="item-price">￥38</div>
+            </div>
+            <div class="quantity-selector">
+                <button class="quantity-btn minus">-</button>
+                <span class="quantity">0</span>
+                <button class="quantity-btn plus">+</button>
+            </div>
+        </div>
+        <div class="menu-item">
+            <div class="item-info">
+                <div class="item-name">日式炸猪排风味脆皮鸡肉</div>
+                <div class="item-desc">Poulet croustillant façon Katsu japonais</div>
+                <div class="item-price">￥38</div>
+            </div>
+            <div class="quantity-selector">
+                <button class="quantity-btn minus">-</button>
+                <span class="quantity">0</span>
+                <button class="quantity-btn plus">+</button>
             </div>
         </div>
     </div>
+
+    <!-- 饮品 -->
+    <div class="menu-section">
+        <h2>饮品 Beverages</h2>
+        <!-- 重复6次豆奶 -->
+        <div class="menu-item">
+            <div class="item-info">
+                <div class="item-name">豆奶</div>
+                <div class="item-desc">Soy Milk</div>
+                <div class="item-price">￥15</div>
+            </div>
+            <div class="quantity-selector">
+                <button class="quantity-btn minus">-</button>
+                <span class="quantity">0</span>
+                <button class="quantity-btn plus">+</button>
+            </div>
+        </div>
+        <div class="menu-item">
+            <div class="item-info">
+                <div class="item-name">豆奶</div>
+                <div class="item-desc">Soy Milk</div>
+                <div class="item-price">￥15</div>
+            </div>
+            <div class="quantity-selector">
+                <button class="quantity-btn minus">-</button>
+                <span class="quantity">0</span>
+                <button class="quantity-btn plus">+</button>
+            </div>
+        </div>
+        <div class="menu-item">
+            <div class="item-info">
+                <div class="item-name">豆奶</div>
+                <div class="item-desc">Soy Milk</div>
+                <div class="item-price">￥15</div>
+            </div>
+            <div class="quantity-selector">
+                <button class="quantity-btn minus">-</button>
+                <span class="quantity">0</span>
+                <button class="quantity-btn plus">+</button>
+            </div>
+        </div>
+        <div class="menu-item">
+            <div class="item-info">
+                <div class="item-name">豆奶</div>
+                <div class="item-desc">Soy Milk</div>
+                <div class="item-price">￥15</div>
+            </div>
+            <div class="quantity-selector">
+                <button class="quantity-btn minus">-</button>
+                <span class="quantity">0</span>
+                <button class="quantity-btn plus">+</button>
+            </div>
+        </div>
+        <div class="menu-item">
+            <div class="item-info">
+                <div class="item-name">豆奶</div>
+                <div class="item-desc">Soy Milk</div>
+                <div class="item-price">￥15</div>
+            </div>
+            <div class="quantity-selector">
+                <button class="quantity-btn minus">-</button>
+                <span class="quantity">0</span>
+                <button class="quantity-btn plus">+</button>
+            </div>
+        </div>
+        <div class="menu-item">
+            <div class="item-info">
+                <div class="item-name">豆奶</div>
+                <div class="item-desc">Soy Milk</div>
+                <div class="item-price">￥15</div>
+            </div>
+            <div class="quantity-selector">
+                <button class="quantity-btn minus">-</button>
+                <span class="quantity">0</span>
+                <button class="quantity-btn plus">+</button>
+            </div>
+        </div>
+    </div>
+</div>
 
     <!-- 订单表单 -->
     <div class="order-form">
